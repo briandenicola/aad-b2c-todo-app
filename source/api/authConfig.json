@@ -1,0 +1,46 @@
+{
+    "credentials": {
+        "tenantID": "mmztkupi.onmicrosoft.com",
+        "clientID": "48c76d13-dbb4-4646-a889-ccab14fdda06"
+    },
+    "policies": {
+        "policyName": "B2C_1_signup_signin_1"
+    },
+    "metadata": {
+        "b2cDomain": "mmztkupi.b2clogin.com",
+        "authority": "login.microsoftonline.com",
+        "discovery": ".well-known/openid-configuration",
+        "version": "v2.0"
+    },
+    "settings": {
+        "isB2C": true,
+        "validateIssuer": true,
+        "passReqToCallback": false,
+        "loggingLevel": "info"
+    },
+    "protectedRoutes": {
+        "todolist": {
+            "endpoint": "/api",
+            "scopes": [
+                "access_as_user"
+            ]
+        }
+    },
+    "accessMatrix": {
+        "todolist": {
+            "path": "/todolist",
+            "methods": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE"
+            ]
+        },
+        "dashboard": {
+            "path": "/dashboard",
+            "methods": [
+                "GET"
+            ]
+        }
+    }
+}
