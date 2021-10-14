@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app_name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.app_name }}
+      lang: nodejs
+  replicas: {{ .Values.replicas }} 
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app_name }}
+        lang: nodejs
+    spec:
+      containers:
+      - name: todoapi
+        image: {{ print .Values.todo_api_image ":" .Values.todo_build_version | nospace  }} 
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      - name: todospa
+        image: {{ print .Values.todo_spa_image ":" .Values.todo_build_version | nospace  }} 
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

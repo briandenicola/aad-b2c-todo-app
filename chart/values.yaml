@@ -1,0 +1,6 @@
+app_name: ''
+hostname: ''
+replicas: 1 
+todo_api_image:
+todo_spa_image:
+todo_build_version:
