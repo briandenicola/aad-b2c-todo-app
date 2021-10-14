@@ -35,7 +35,7 @@ spec:
       - name: todospa
         image: {{ print .Values.todo_spa_image ":" .Values.todo_build_version | nospace  }} 
         ports:
-        - containerPort: 3000
+        - containerPort: 80
         resources:
           requests:
             memory: "64Mi"
