@@ -156,3 +156,6 @@ _TBD_
 - [ ] Create GitHub Actions pipeline to create infrastructure
 - [ ] Create Helm Charts for Kubernetes deployment 
 - [ ] Update Flux to deploy to Kubernetes cluster
+
+## References
+- https://github.com/Azure-Samples/ms-identity-javascript-react-tutorial/
