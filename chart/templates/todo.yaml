@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.app_name "-api" }}
+  name: {{ print .Values.app_name "-api" }}
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.app_name "-api" }}
+      app: {{ print .Values.app_name "-api" }}
       lang: nodejs
   replicas: {{ .Values.replicas }} 
   strategy:
@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.app_name "-api"}}
+        app: {{ print .Values.app_name "-api"}}
         lang: nodejs
     spec:
       containers:
@@ -36,11 +36,11 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.app_name "-spa" }}
+  name: {{ print .Values.app_name "-spa" }}
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.app_name "-spa" }}
+      app: {{ print .Values.app_name "-spa" }}
       lang: nodejs
   replicas: {{ .Values.replicas }} 
   strategy:
@@ -52,7 +52,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.app_name "-spa" }}
+        app: {{ print .Values.app_name "-spa" }}
         lang: nodejs
     spec:
       containers:
