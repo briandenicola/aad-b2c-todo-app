@@ -1,9 +1,9 @@
-name: Builds code for proejct
+name: Builds code for project
 on:
   workflow_dispatch:
     inputs:
       tags:
-        description:  Builds code for proejct
+        description:  Builds code for project
 
 jobs:
   deploy:
