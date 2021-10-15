@@ -41,10 +41,7 @@ spec:
         host: {{ print .Values.app_name "-api-svc" }}
         port:
           number: 5000
-  - match:
-    - uri:
-        prefix: "/"
-    route:
+  - route:
     - destination:
         host: {{ print .Values.app_name "-spa-svc" }}
         port:
