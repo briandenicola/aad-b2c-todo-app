@@ -1,5 +1,6 @@
 app_name: 'todo-da27d5'
 hostname: 'todo.bjdazure.tech'
+b2c_tenanat: 'mmztkupi.b2clogin.com'
 replicas: 1 
 todo_api_image: 'bjd145/todoapi'
 todo_spa_image: 'bjd145/todospa'
