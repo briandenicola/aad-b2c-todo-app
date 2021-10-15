@@ -61,8 +61,8 @@ export const msalConfig = {
 
 export const protectedResources = {
     apiTodoList: {
-        todoListEndpoint: "http://localhost:5000/api/todolist",
-        dashboardEndpoint: "http://localhost:5000/api/dashboard",
+        todoListEndpoint: "https://todo.bjdazure.tech/api/todolist",
+        dashboardEndpoint: "https://todo.bjdazure.tech/api/dashboard",
         scopes: ["https://mmztkupi.onmicrosoft.com/todoapi/access_as_user"],
     },
 }

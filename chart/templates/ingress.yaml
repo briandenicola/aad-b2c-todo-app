@@ -33,9 +33,21 @@ spec:
   gateways:
   -  {{ print .Values.hostname "-gw" | replace "." "-" }}
   http:
-  - route:
+  - match:
+    - uri:
+        prefix: "/api"
+    route:
     - destination:
-        host: {{ print .Values.app_name "-svc" }}
+        host: {{ print .Values.app_name "-api-svc" }}
+        port:
+          number: 5000
+  - match:
+    - uri:
+        prefix: "/"
+    route:
+    - destination:
+        host: {{ print .Values.app_name "-spa-svc" }}
         port:
           number: 80
+
   
