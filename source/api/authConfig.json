@@ -1,13 +1,13 @@
 {
     "credentials": {
-        "tenantID": "{TenantName}.onmicrosoft.com",
-        "clientID": "{ClientID}"
+        "tenantID": "mmztkupi.onmicrosoft.com",
+        "clientID": "48c76d13-dbb4-4646-a889-ccab14fdda06"
     },
     "policies": {
         "policyName": "B2C_1_signup_signin_1"
     },
     "metadata": {
-        "b2cDomain": "{TenantName}.b2clogin.com",
+        "b2cDomain": "mmztkupi.b2clogin.com",
         "authority": "login.microsoftonline.com",
         "discovery": ".well-known/openid-configuration",
         "version": "v2.0"

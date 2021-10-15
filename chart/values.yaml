@@ -1,6 +1,6 @@
-app_name: ''
-hostname: ''
+app_name: 'todo-da27d5'
+hostname: 'todo.bjdazure.tech'
 replicas: 1 
-todo_api_image:
-todo_spa_image:
-todo_build_version:
+todo_api_image: 'bjd145/todospa'
+todo_spa_image: 'bjd145/todoapi'
+todo_build_version: ''

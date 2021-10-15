@@ -9,21 +9,21 @@ export const b2cPolicies = {
     },
     authorities: {
         signUpSignIn: {
-            authority: "https://{TenantName}.b2clogin.com/{TenantName}.onmicrosoft.com/b2c_1_signup_signin_1",
+            authority: "https://mmztkupi.b2clogin.com/mmztkupi.onmicrosoft.com/b2c_1_signup_signin_1",
         },
         forgotPassword: {
-            authority: "https://{TenantName}.b2clogin.com/{TenantName}.onmicrosoft.com/b2c_1_password_reset_1",
+            authority: "https://mmztkupi.b2clogin.com/mmztkupi.onmicrosoft.com/b2c_1_password_reset_1",
         },
         editProfile: {
-            authority: "https://{TenantName}.b2clogin.com/{TenantName}.onmicrosoft.com/b2c_1_edit_profile_1"
+            authority: "https://mmztkupi.b2clogin.com/mmztkupi.onmicrosoft.com/b2c_1_edit_profile_1"
         }
     },
-    authorityDomain: "{TenantName}.b2clogin.com"
+    authorityDomain: "mmztkupi.b2clogin.com"
 }
 
 export const msalConfig = {
     auth: {
-        clientId: '{ClientID}', 
+        clientId: 'b41ccb37-e822-48bd-b47c-11c9ab2397d1', 
         authority: b2cPolicies.authorities.signUpSignIn.authority, 
         knownAuthorities: [b2cPolicies.authorityDomain], 
         redirectUri: "/", 
@@ -63,7 +63,7 @@ export const protectedResources = {
     apiTodoList: {
         todoListEndpoint: "http://localhost:5000/api/todolist",
         dashboardEndpoint: "http://localhost:5000/api/dashboard",
-        scopes: ["https://{TenantName}.onmicrosoft.com/todoapi/access_as_user"],
+        scopes: ["https://mmztkupi.onmicrosoft.com/todoapi/access_as_user"],
     },
 }
 
