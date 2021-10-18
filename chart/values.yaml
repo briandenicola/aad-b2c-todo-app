@@ -5,3 +5,4 @@ replicas: 1
 todo_api_image: 'bjd145/todoapi'
 todo_spa_image: 'bjd145/todospa'
 todo_build_version: ''
+istio_gateway: 'default-bjdazure-tech-gw'
