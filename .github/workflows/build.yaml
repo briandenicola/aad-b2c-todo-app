@@ -26,11 +26,28 @@ jobs:
       shell: bash
       working-directory: './source/api'
       run: |
-        export DOCKER_IMAGE=${{ env.API_IMAGE_NAME }}:${GITHUB_SHA}
-      
+        docker build -t ${{ env.API_IMAGE_NAME }}:${GITHUB_SHA} .
+
+    - uses: Azure/container-scan@v0 
+      name: Scan image for vulnerabilities
+      id: container-scan
+      continue-on-error: true
+      with:
+        image-name: ${{ env.API_IMAGE_NAME }}:${GITHUB_SHA}
+
+    - name: "Push API code"
+      shell: bash
+      working-directory: './source/api'
+      run: |
         echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ env.dockerid }}  --password-stdin
-        docker build -t ${DOCKER_IMAGE} .
-        docker push ${DOCKER_IMAGE}
+        docker push ${{ env.API_IMAGE_NAME }}:${GITHUB_SHA}
+
+    - name: Post logs to appinsights
+      uses: Azure/publish-security-assessments@v0
+      with: 
+        scan-results-path: ${{ steps.container-scan.outputs.scan-report-path }}
+        connection-string: ${{ secrets.AZ_APPINSIGHTS_CONNECTION_STRING }}
+        subscription-token: ${{ secrets.AZ_SUBSCRIPTION_TOKEN }} 
 
     - name: "Build SPA code"
       shell: bash
