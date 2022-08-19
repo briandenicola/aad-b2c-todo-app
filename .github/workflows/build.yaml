@@ -1,10 +1,7 @@
 name: Builds code for project
 on:
   workflow_dispatch:
-    inputs:
-      tags:
-        description:  Builds code for project
-
+    
 jobs:
   deploy:
     name: Build and publish
@@ -14,13 +11,18 @@ jobs:
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-        dockerid:   'bjd145'
-        API_IMAGE_NAME: 'bjd145/todoapi'
-        SPA_IMAGE_NAME: 'bjd145/todospa'
+        ACR_NAME: 'bjdcsa.azurecr.io'
+        API_IMAGE_NAME: ${{ env.ACR_NAME}}'/todo/api'
+        SPA_IMAGE_NAME: ${{ env.ACR_NAME}}'/todo/spa'
     
     steps:
     - name: "Checkout"
       uses: actions/checkout@master
+
+    - name: "Log into Azure"
+      uses: Azure/login@v1.1
+      with:
+        creds: '{"clientId":"${{ env.ARM_CLIENT_ID }}","clientSecret":"${{ env.ARM_CLIENT_SECRET }}","subscriptionId":"${{ env.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ env.ARM_TENANT_ID }}"}'
 
     - name: "Build API code"
       shell: bash
@@ -39,7 +41,7 @@ jobs:
       shell: bash
       working-directory: './source/api'
       run: |
-        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ env.dockerid }}  --password-stdin
+        az acr login -u ${{ env.ACR_NAME }}
         docker push ${{ env.API_IMAGE_NAME }}:${{ github.sha }}
 
     #- name: Post logs to appinsights
@@ -55,14 +57,9 @@ jobs:
       run: |
         export DOCKER_IMAGE=${{ env.SPA_IMAGE_NAME }}:${{ github.sha }}
       
-        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ env.dockerid }}  --password-stdin
+        az acr login -u  ${{ env.ACR_NAME }}
         docker build -t ${DOCKER_IMAGE} .
         docker push ${DOCKER_IMAGE}
-
-    - name: "Log into Azure"
-      uses: Azure/login@v1.1
-      with:
-        creds: '{"clientId":"${{ env.ARM_CLIENT_ID }}","clientSecret":"${{ env.ARM_CLIENT_SECRET }}","subscriptionId":"${{ env.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ env.ARM_TENANT_ID }}"}'
 
     - name: "Publish Helm Chart"
       shell: bash
@@ -70,4 +67,4 @@ jobs:
       run: |
         helm package . 
         package=`ls b2c-todo*.tgz`
-        az acr helm push -n ${{ env.dockerid }} ${package} --force
+        helm push ${package} oci://${{ env.ACR_NAME }}/helm
