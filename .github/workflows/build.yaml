@@ -12,8 +12,8 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       ACR_NAME: bjdcsa.azurecr.io
-      API_IMAGE_NAME: ${{ env.ACR_NAME}}/todo/api
-      SPA_IMAGE_NAME: ${{ env.ACR_NAME}}/todo/spa
+      API_IMAGE_NAME: ${{ env.ACR_NAME }}/todo/api
+      SPA_IMAGE_NAME: ${{ env.ACR_NAME }}/todo/spa
     
     steps:
     - name: "Checkout"
