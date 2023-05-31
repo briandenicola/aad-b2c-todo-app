@@ -12,8 +12,6 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       ACR_NAME: bjdcsa.azurecr.io
-      API_IMAGE_NAME: ${{ env.ACR_NAME }}/todo/api
-      SPA_IMAGE_NAME: ${{ env.ACR_NAME }}/todo/spa
     
     steps:
     - name: "Checkout"
@@ -28,21 +26,21 @@ jobs:
       shell: bash
       working-directory: './source/api'
       run: |
-        docker build -t ${{ env.API_IMAGE_NAME }}:${{ github.sha }} .
+        docker build -t ${{ env.ACR_NAME }}/todo/api:${{ github.sha }} .
 
     - uses: Azure/container-scan@v0 
       name: Scan image for vulnerabilities
       id: container-scan
       continue-on-error: true
       with:
-        image-name: ${{ env.API_IMAGE_NAME }}:${{ github.sha }}
+        image-name: ${{ env.ACR_NAME }}/todo/api:${{ github.sha }}
 
     - name: "Push API code"
       shell: bash
       working-directory: './source/api'
       run: |
         az acr login -u ${{ env.ACR_NAME }}
-        docker push ${{ env.API_IMAGE_NAME }}:${{ github.sha }}
+        docker push ${{ env.ACR_NAME }}/todo/api:${{ github.sha }}
 
     #- name: Post logs to appinsights
     #  uses: Azure/publish-security-assessments@v0
@@ -55,7 +53,7 @@ jobs:
       shell: bash
       working-directory: './source/spa'
       run: |
-        export DOCKER_IMAGE=${{ env.SPA_IMAGE_NAME }}:${{ github.sha }}
+        export DOCKER_IMAGE=${{ env.ACR_NAME }}/todo/spa:${{ github.sha }}
       
         az acr login -u  ${{ env.ACR_NAME }}
         docker build -t ${DOCKER_IMAGE} .
