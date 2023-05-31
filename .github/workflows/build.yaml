@@ -55,7 +55,7 @@ jobs:
       run: |
         export DOCKER_IMAGE=${{ env.ACR_NAME }}/todo/spa:${{ github.sha }}
       
-        az acr login -u  ${{ env.ACR_NAME }}
+        az acr login -n  ${{ env.ACR_NAME }}
         docker build -t ${DOCKER_IMAGE} .
         docker push ${DOCKER_IMAGE}
 
