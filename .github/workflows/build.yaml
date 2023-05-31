@@ -39,7 +39,7 @@ jobs:
       shell: bash
       working-directory: './source/api'
       run: |
-        az acr login -u ${{ env.ACR_NAME }}
+        az acr login -n ${{ env.ACR_NAME }}
         docker push ${{ env.ACR_NAME }}/todo/api:${{ github.sha }}
 
     #- name: Post logs to appinsights
